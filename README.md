@@ -18,7 +18,7 @@ Posteriormente, accedes a localhost de tu servidor local en la dirección que te
 - Bootstrap: Nos ofrece una plantilla default sobre la cual trabajar.
 - MySQL: Base de datos.
 
-## Estructura del proyecto.
+## Estructura del proyecto
 Diferentes folders para las imágenes, css javascript y fuentes usadas. 
 Los archivos .html se encontrarán en la rama principal
 
