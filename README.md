@@ -5,6 +5,7 @@ ShearStyle es una web HTML, CSS, Javascript, Framework Bootstrap y PHP para una 
 - Carlos Beltrán Romero
 - Alvaro Griñón Martínez
 - Israel Luna Barrero
+- Cesar Cerrolaza Salas
   
  ## Arrancar la Aplicación Web
 Para ello, deberás tener instalado en tu entorno de trabajo la extensión Live Server o similar que inicie un servidor local.
