@@ -13,7 +13,7 @@ Posteriormente, accedes a localhost de tu servidor local en la dirección que te
 
 ## Herramientas de desarrollo web usadas
 - HTML: Lenguaje de marcado usado para dar estructura al proyecto.
-- CSS: Contiene las hijas de estilo.
+- CSS: Contiene las hojas de estilo.
 - Javascript: Animaciones y pantalla de carga
 - PHP: El proyecto se basa mayoritariamente de este lenguaje de programación. Usado para conexión a base de datos y lógica de la web.
 - Bootstrap: Nos ofrece una plantilla default sobre la cual trabajar.
