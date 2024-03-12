@@ -60,7 +60,7 @@ CREATE TABLE `peluquero` (
   `Email` varchar(100) NOT NULL,
   `Telefono` varchar(15) DEFAULT NULL,
   `Contraseña` varchar(50) NOT NULL,
-  `Foto` blob DEFAULT NULL
+  `Foto` mediumblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
