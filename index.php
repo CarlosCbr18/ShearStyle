@@ -65,25 +65,25 @@ if(!$bd) {
             <ul class="list-unstyled components">
 
                 <li class="active">
-                    <a href="index.html">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li>
-                    <a href="about.html">Sobre Nosotros</a>
+                    <a href="about.php">Sobre Nosotros</a>
                 </li>
                 <li>
-                    <a href="service.html">Servicios</a>
+                    <a href="service.php">Servicios</a>
                 </li>
                 <li>
-                    <a href="pricing.html">Precios</a>
-                </li>
-
-                <li>
-                    <a href="barbers.html">Nuestros Peluqueros</a>
-
+                    <a href="pricing.php">Precios</a>
                 </li>
 
                 <li>
-                    <a href="contact.html">Solicita una Cita</a>
+                    <a href="barbers.php">Nuestros Peluqueros</a>
+
+                </li>
+
+                <li>
+                    <a href="contact.php">Solicita una Cita</a>
                 </li>
             </ul>
 
