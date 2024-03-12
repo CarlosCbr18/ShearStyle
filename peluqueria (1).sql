@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-03-2024 a las 10:50:53
+-- Tiempo de generación: 12-03-2024 a las 12:01:49
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -46,6 +46,19 @@ CREATE TABLE `cliente` (
   `Email` varchar(255) NOT NULL,
   `Telefono` varchar(20) NOT NULL,
   `Contraseña` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pago`
+--
+
+CREATE TABLE `pago` (
+  `ID` int(11) NOT NULL,
+  `ID_CLI` int(11) NOT NULL,
+  `ID_CIT` int(11) NOT NULL,
+  `ID_SERV` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -97,6 +110,15 @@ ALTER TABLE `cliente`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indices de la tabla `pago`
+--
+ALTER TABLE `pago`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_SERV` (`ID_SERV`),
+  ADD KEY `ID_CLI` (`ID_CLI`),
+  ADD KEY `ID_CIT` (`ID_CIT`);
+
+--
 -- Indices de la tabla `peluquero`
 --
 ALTER TABLE `peluquero`
@@ -120,6 +142,14 @@ ALTER TABLE `cita`
   ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`ID_PELU`) REFERENCES `peluquero` (`ID`),
   ADD CONSTRAINT `cita_ibfk_2` FOREIGN KEY (`ID_SERV`) REFERENCES `servicio` (`ID`),
   ADD CONSTRAINT `cita_ibfk_3` FOREIGN KEY (`ID_CLI`) REFERENCES `cliente` (`ID`);
+
+--
+-- Filtros para la tabla `pago`
+--
+ALTER TABLE `pago`
+  ADD CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`ID_SERV`) REFERENCES `servicio` (`ID`),
+  ADD CONSTRAINT `pago_ibfk_2` FOREIGN KEY (`ID_CLI`) REFERENCES `cliente` (`ID`),
+  ADD CONSTRAINT `pago_ibfk_3` FOREIGN KEY (`ID_CIT`) REFERENCES `cita` (`ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
