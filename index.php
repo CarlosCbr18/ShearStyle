@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+session_start(); // Inicia la sesión
+
+if (isset($_SESSION["ID"])) {
+    $id = $_SESSION["ID"]; // Recupera el ID de la sesión
+}
+?>
+<?php
 $servername = "localhost";
 $username = "pw";
 $password = "pw";
@@ -109,7 +116,7 @@ if(!$bd) {
                                     <li class="dinone"><img style="margin-right: 15px;" src="images/mail_icon.png" alt="#"><a href="#">ShearStyle@gmail.com</a></li>
 
 
-                                    <li class="button_user"> <a class="button" href="#">Iniciar Sesión</a></li>
+                                    <li class="button_user"> <a class="button" href="login.php">Iniciar Sesión</a></li>
 
                                     <li>
                                         <button type="button" id="sidebarCollapse">
@@ -133,7 +140,7 @@ if(!$bd) {
                     <span>Stylish Hair</span>
                     <h1>Crea tu<br>
                         look perfecto</h1>
-                    <a href="contact.html">Solicita una cita </a>
+                    <a href="contact.php">Solicita una cita </a>
                 </div>
             </div>
         </div>
@@ -409,7 +416,7 @@ if(!$bd) {
                     <div class="row">
                         <div class="col-md-12">
                             <div class="footer_logo">
-                                <a href="index.html"><img src="images/logo1.png" alt="logo" /></a>
+                                <a href="index.php"><img src="images/logo1.png" alt="logo" /></a>
                             </div>
                         </div>
                         <div class="col-md-12">

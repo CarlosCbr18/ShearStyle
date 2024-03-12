@@ -92,7 +92,7 @@
                                     <li class="dinone"><img style="margin-right: 15px;" src="images/mail_icon.png" alt="#"><a href="#">ShearStyle@gmail.com</a></li>
 
                                    
-                                    <li class="button_user"> <a class="button" href="#">Iniciar Sesión</a></li>
+                                    <li class="button_user"> <a class="button" href="login.php">Iniciar Sesión</a></li>
 
                                     <li>
                                         <button type="button" id="sidebarCollapse">
@@ -236,7 +236,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="footer_logo">
-                        <a href="index.html"><img src="images/logo1.png" alt="logo" /></a>
+                        <a href="index.php"><img src="images/logo1.png" alt="logo" /></a>
                     </div>
                 </div>
                 <div class="col-md-12">

@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+$servername = "localhost";
+$username = "pw";
+$password = "pw";
 
+// Crear conexión
+$conn = new mysqli($servername, $username, $password);
+
+// Verificar conexión
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$bd = mysqli_select_db($conn, 'peluqueria');
+if(!$bd) {
+    echo"Error al seleccionar la base de datos.";
+}
+?>
 <head>
     <!-- basic -->
     <meta charset="utf-8">
@@ -92,7 +108,7 @@
                                     <li class="dinone"><img style="margin-right: 15px;" src="images/mail_icon.png" alt="#"><a href="#">ShearStyle@gmail.com</a></li>
 
                                    
-                                    <li class="button_user"> <a class="button" href="#">Iniciar Sesión</a></li>
+                                    <li class="button_user"> <a class="button" href="login.php">Iniciar Sesión</a></li>
 
                                     <li>
                                         <button type="button" id="sidebarCollapse">
@@ -112,7 +128,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="title">
-                                <h2>Contact</h2>
+                                <h2>Tú eliges cuándo</h2>
 
                             </div>
                         </div>
@@ -125,7 +141,7 @@
                     <div class="row">
                         <div class=" col-md-12">
                             <div class="title">
-                                <h2>Request  A<strong class="white"> Call  Back</strong></h2>
+                                <h2>Solicita una<strong class="white"> Cita</strong></h2>
                             </div>
                         </div>
                     </div>
@@ -137,22 +153,50 @@
                                 <div class="row">
 
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <input class="form-control" placeholder="Your Name" type="text" name="Your Name">
+                                        <input class="form-control" placeholder="Fecha" type="date" name=" Fecha">
+                                    </div>
+
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <input class="form-control" type="time" id="hora" name="hora" min="10:00" max="21:00" oninput="timeStep(this)">
+
+                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                    <script>
+                                    function timeStep(input) {
+                                        var value = $(input).val();
+                                        var time = value.split(':');
+                                        var minutes = Math.round(time[1] / 15) * 15;
+                                        if (minutes >= 60) {
+                                            var hours = time[0];
+                                            hours++;
+                                            minutes = 0;
+                                            if (hours < 10) hours = '0' + hours;
+                                        }
+                                        if (minutes < 10) minutes = '0' + minutes;
+                                        $(input).val(time[0] + ':' + minutes);
+                                    }
+                                    </script>
+
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <input class="form-control" placeholder="Phone Number" type="text" name="Email">
+                                        <label for="opciones"><h1 style="color:white">Selecciona una opción:<br></h1></label>
+                                            <select id="opciones" name="opciones"  style="width: 200px; background-color: #00aeef;border: #00aeef solid 2px;
+                                            border-radius: inherit;
+                                            margin-bottom: 25px;
+                                            padding: 12px 20px;
+                                            background: #00aeef;
+                                           color: #fff;
+                                            font-family: poppins; margin-left: 20px;">
+                                            <option value="opcion0" disabled selected>Selecciona</option>
+                                            <?php
+                                                $servicios = mysqli_query($conn,'SELECT nombre,precio FROM servicio');
+                                            while($row = mysqli_fetch_array($servicios)){
+                                                echo "<option value=".$row['nombre']." >".$row['nombre']."</option>";
+                                            }
+                                            ?>
+                                            </select>
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <input class="form-control" placeholder="Email" type="text" name=" Email">
-                                    </div>
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <input class="form-control" placeholder="Date" type="date" name=" Date">
-                                    </div>
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <textarea class="textarea" placeholder="Message" type="text" name="Message"></textarea>
-                                    </div>
-                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <button class="send">Send</button>
+                                        <button class="send">Confirmar</button>
                                     </div>
                                 </div>
                             </form>
@@ -173,7 +217,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="footer_logo">
-                        <a href="index.html"><img src="images/logo1.png" alt="logo" /></a>
+                        <a href="index.php"><img src="images/logo1.png" alt="logo" /></a>
                     </div>
                 </div>
                 <div class="col-md-12">

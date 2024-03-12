@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+ob_start(); // Inicia el almacenamiento en búfer de salida
+session_start(); 
+?>
+<?php
 $servername = "localhost";
 $username = "pw";
 $password = "pw";
@@ -17,7 +21,6 @@ if(!$bd) {
     echo"Error al seleccionar la base de datos.";
 }
 ?>
-
 <head>
     <!-- basic -->
     <meta charset="utf-8">
@@ -26,7 +29,7 @@ if(!$bd) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Precios ShearStyle</title>
+    <title>Login ShearStyle</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -130,7 +133,7 @@ if(!$bd) {
                     <div class="row">
                         <div class="col-md-12">
                             <div class="title">
-                                <h2>Precios</h2>
+                                <h2>Incio Sesión</h2>
 
                             </div>
                         </div>
@@ -140,77 +143,53 @@ if(!$bd) {
 
             <!-- pricing -->
             <div class="pricing">
-                <div class="container">
-
-                </div>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mar_bottom">
-                            <div class="pricing_img">
-                                <figure><img src="images/vvv.png" alt="#" />
-                                </figure>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 pad_left">
-                            <div class="pricing_box">
-                                <div class="list">
-                                    <ul>
-                                    <?php
-                                        $servicios = mysqli_query($conn,'SELECT nombre,precio FROM servicio');
-                                        $i=0;
-                                        while($row = mysqli_fetch_array($servicios)){
-                                            echo "<li><span class='float-left'>".$row['nombre']."</span><span class='float-right'>$ ".$row['precio']."</span></li>";
-                                            $i++;
-                                            if($i==4){
-                                                break;
-                                            }
-                                        }
-                                    ?>
-                                    </ul>
-                                    <ul>
-                                    <?php
-                                        while($row = mysqli_fetch_array($servicios)){
-                                            echo "<li><span class='float-left'>".$row['nombre']."</span><span class='float-right'>$ ".$row['precio']."</span></li>";
-                                        }
-                                    ?>
-                                    </ul>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                
                     <div class="opening">
                         <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="ourheading">
-                                        <h2>Horario<strong class="white"> ShearStyle</strong></h2>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="opening_bg">
-                                <div class="row">
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                        <div class="times">
-                                            <ul>
-                                                <li><span>Lunes</span><span class="float-right">9:00       <strong class="bbbb">21:00</strong></span></li>
-                                                <li><span>Martes </span><span class="float-right">9:00      <strong class="bbbb">21:00</strong></span></li>
-                                                <li><span>Miércoles</span><span class="float-right">9:00      <strong class="bbbb">21:00</strong></span></li>
+                                
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" style="max-width: none;">
+                                        <div class="form_section">
+                                            <form action="login.php" method="post">
+                                                <div class="container">
+                                                    
+                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="align-items: center;">
+                                                            
+                                                        </div>
+                                                    
+                                                    <div class="row">
+                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                                            <input class="form-control" placeholder="Correo" type="text" name="correo" style="width: 200px; background-color: #fff;border: #ffff
+                                                             solid 2px;
+                                                            border-radius: inherit;
+                                                            margin-bottom: 25px;
+                                                            padding: 12px 20px;
+                                                            background: #fff;
+                                                           color: #000;
+                                                            font-family: poppins;width: 100%; ">
+                                                        </div>
+                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                                            <input class="form-control" placeholder="Contraseña" type="password" name="contrasena"style="width: 200px; background-color: #fff;border: #ffff
+                                                            solid 2px;
+                                                           border-radius: inherit;
+                                                           margin-bottom: 25px;
+                                                           padding: 12px 20px;
+                                                           background: #fff;
+                                                          color: #000;
+                                                           font-family: poppins;width: 100%; ">
+                                                        </div>
+                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                                            <button class="send">Iniciar Sesión</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
 
-                                            </ul>
-                                        </div>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                        <div class="times">
-                                            <ul>
-                                                <li><span>Jueves </span><span class="float-right">9:00       <strong class="bbbb">21:00</strong></span></li>
-                                                <li><span>Viernes</span><span class="float-right">9:00      <strong class="bbbb">21:00</strong></span></li>
-                                                <li><span>Sábado</span><span class="float-right">9:00      <strong class="bbbb">21:00</strong></span></li>
-                                                <li><span>Domingo</span><span class="float-right">Cerrado</span> </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                    
+                                
                             </div>
                         </div>
                     </div>
@@ -327,5 +306,32 @@ if(!$bd) {
             </script>
 
 </body>
-
+<?php
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $correo = $_POST['correo'];
+    $contrasena = $_POST['contrasena'];
+    $peluqueros = mysqli_query($conn,'SELECT ID FROM peluquero Where Email="'.$correo.'" and Contraseña="'.$contrasena.'"');
+    if(mysqli_num_rows($peluqueros) > 0){
+        $id = mysqli_fetch_assoc($peluqueros);
+        $_SESSION["ID"] = $id['ID']; // Guarda el ID en la sesión
+        header('Location: index_peluquero.php'); //lo redirige a index.php se puede cambiar a index_peluquero.php
+        exit();
+        //añadir cosas para que guarde que es peluquero
+    }else{
+        $clientes = mysqli_query($conn,'SELECT ID FROM cliente Where Email="'.$correo.'" and Contraseña="'.$contrasena.'"');
+        if(mysqli_num_rows($clientes) > 0){
+            $id = mysqli_fetch_assoc($peluqueros);
+            $_SESSION["ID"] = $id['ID']; // Guarda el ID en la sesión
+            header('Location: index.php'); //lo redirige a index.php
+            exit();
+            //añadir cosas para que guarde que es cliente
+        }else{
+            echo "<script>alert('Correo o contraseña incorrectos');</script>";
+        }
+    }
+}
+?>
+<?php
+ob_end_flush(); // Envía la salida al navegador
+?>
 </html>

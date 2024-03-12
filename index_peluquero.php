@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+session_start(); // Inicia la sesión
 
+if (isset($_SESSION["ID"])) {
+    $id = $_SESSION["ID"]; // Recupera el ID de la sesión
+}else{
+    echo"No se ha recuperado el id de la sesion";
+}
+?>
+<?php
+$servername = "localhost";
+$username = "pw";
+$password = "pw";
+
+// Crear conexión
+$conn = new mysqli($servername, $username, $password);
+
+// Verificar conexión
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$bd = mysqli_select_db($conn, 'peluqueria');
+if(!$bd) {
+    echo"Error al seleccionar la base de datos.";
+}
+?>
 <head>
     <!-- basic -->
     <meta charset="utf-8">
@@ -9,7 +34,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>About us ShearStyle</title>
+    <title>ShearStyle Salon</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -24,59 +49,57 @@
     <!-- awesome fontfamily -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <!-- body -->
 
 <body class="main-layout">
-    <!-- loader  -->
-    <div class="loader_bg">
-        <div class="loader"><img src="images/loading.gif" alt="" /></div>
+
+
+<div class="wrapper">
+    <!-- end loader -->
+
+    <div class="sidebar">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+
+            <div id="dismiss">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <li class="active">
+                    <a href="index.php">Home</a>
+                </li>
+                <li>
+                    <a href="about.php">Sobre Nosotros</a>
+                </li>
+                <li>
+                    <a href="service.php">Servicios</a>
+                </li>
+                <li>
+                    <a href="pricing.php">Precios</a>
+                </li>
+
+                <li>
+                    <a href="barbers.php">Nuestros Peluqueros</a>
+
+                </li>
+
+                <li>
+                    <a href="contact.php">Solicita una Cita</a>
+                </li>
+            </ul>
+
+        </nav>
     </div>
-    <div class="wrapper">
-        <!-- end loader -->
 
-        <div class="sidebar">
-            <!-- Sidebar  -->
-            <nav id="sidebar">
-
-                <div id="dismiss">
-                    <i class="fa fa-arrow-left"></i>
-                </div>
-
-                <ul class="list-unstyled components">
-
-                    <li>
-                        <a href="index.php">Home</a>
-                    </li>
-                    <li class="active">
-                        <a href="about.php">Sobre Nosotros</a>
-                    </li>
-                    <li>
-                        <a href="service.ph">Servicios</a>
-                    </li>
-                    <li>
-                        <a href="pricing.php">Precios</a>
-                    </li>
-
-                    <li>
-                        <a href="barbers.php">Nuestros Peluqueros</a>
-
-                    </li>
-
-                    <li>
-                        <a href="contact.php">Solicita una Cita</a>
-                    </li>
-                </ul>
-
-            </nav>
-        </div>
-
-        <div id="content">
-          <!-- header -->
-           
-           <header>
+    <div id="content">
+        <!-- header -->
+        <!-- header -->
+        <header>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
@@ -91,7 +114,7 @@
                                     <li class="dinone"><img style="margin-right: 15px;margin-left: 15px;" src="images/phone_icon.png" alt="#"><a href="#">956 14 32 56</a></li>
                                     <li class="dinone"><img style="margin-right: 15px;" src="images/mail_icon.png" alt="#"><a href="#">ShearStyle@gmail.com</a></li>
 
-                                   
+
                                     <li class="button_user"> <a class="button" href="login.php">Iniciar Sesión</a></li>
 
                                     <li>
@@ -106,82 +129,64 @@
                 </div>
             </div>
         </header>
-       
         <!-- end header -->
-            <div class="yellow_bg">
+        <!-- end header -->
+        <!-- start slider section -->
+        <?php
+$citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id");
+
+if (mysqli_num_rows($citas) > 0) {
+    echo "<table>";
+    echo "<tr><th>ID</th><th>ID_PELU</th><th>ID_SERV</th><th>ID_CLI</th><th>Fecha</th></tr>";
+    while($row = mysqli_fetch_assoc($citas)) {
+        echo "<tr><td>" . $row["ID"] . "</td><td>" . $row["ID_PELU"] . "</td><td>" . $row["ID_SERV"] . "</td><td>" . $row["ID_CLI"] . "</td><td>" . $row["Fecha"] . "</td></tr>";
+    }
+    echo "</table>";
+} else {
+    echo "No hay citas para este peluquero.";
+}
+?>
+
+            <!-- footer -->
+
+            <div class="footer">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="title">
-                                <h2>Sobre Nosotros</h2>
-
+                            <div class="footer_logo">
+                                <a href="index.php"><img src="images/logo1.png" alt="logo" /></a>
                             </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="address">
+                                <h3>Drección</h3>
+                                <p>
+                                    Dirección: 73 Gran Vía, Madrid, España
+                                    <br> Tel: +34 9561432568
+                                    <br> Email: ShearStyle@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <ul class="lik">
+
+                                <li> <img src="images/fb.png" alt="#" /></li>
+                                <li> <img src="images/tw.png" alt="#" /></li>
+                                <li> <img src="images/you.png" alt="#" /></li>
+
+                            </ul>
+
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- about -->
-            <div id="about" class="about">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                            <div class="about_box">
-                                <span>Bienvenidos a ShearStyle</span>
-                                <h2>Nuestra <strong class="white">Experiencia</strong></h2>
-                                <p>Bienvenidos a Shear Style, el salón que cuida de tu imagen con profesionalidad y creatividad. Somos un equipo de estilistas expertos en las últimas tendencias y técnicas de corte, color y peinado. Ofrecemos una atención personalizada y adaptada a tu estilo, tanto si quieres un cambio radical como si prefieres mantener tu look. En Shear Style encontrarás un ambiente acogedor y moderno, con los mejores productos y herramientas para tu cabello. También tenemos servicios especiales para ocasiones especiales. Sea cual sea tu estilo, en Shear Style lo hacemos realidad. Ven a visitarnos y déjate asesorar por nuestros maestros del color y la forma. Te esperamos con una sonrisa.</p>
-                                
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                            <div class="about_img">
-                                <figure><img src="images/about_img.png" alt="#" /></figure>
-                            </div>
-                        </div>
+                <div class="copyright">
+                    <div class="container">
+                        <p>© 2019 All Rights Reserved. </p>
                     </div>
                 </div>
             </div>
-            <!-- end about -->
-
-              <!-- footer -->
-
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="footer_logo">
-                        <a href="index.php"><img src="images/logo1.png" alt="logo" /></a>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="address">
-                        <h3>Drección</h3>
-                        <p>
-                            Dirección: 73 Gran Vía, Madrid, España
-                            <br> Tel: +34 9561432568
-                            <br> Email: ShearStyle@gmail.com</p>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <ul class="lik">
-
-                        <li> <img src="images/fb.png" alt="#" /></li>
-                        <li> <img src="images/tw.png" alt="#" /></li>
-                        <li> <img src="images/you.png" alt="#" /></li>
-
-                    </ul>
-
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <div class="container">
-                <p>© 2019 All Rights Reserved. </p>
-            </div>
-        </div>
-    </div>
 
 
-<!-- end footer -->
+            <!-- end footer -->
 
         </div>
 
@@ -195,7 +200,6 @@
         <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
 
         <script src="js/jquery-3.0.0.min.js"></script>
-
         <script type="text/javascript">
             $(document).ready(function() {
                 $("#sidebar").mCustomScrollbar({
@@ -215,11 +219,12 @@
                 });
             });
         </script>
+
         <style>
             #owl-demo .item {
                 margin: 3px;
             }
-            
+
             #owl-demo .item img {
                 display: block;
                 width: 100%;
