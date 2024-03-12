@@ -52,6 +52,9 @@
  h6 {
      font-size: 13px 
 }
+option{
+    color: white;
+}
  *, *::after, *::before {
      -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
@@ -237,6 +240,7 @@
  .text_align_center {
      text-align: center;
 }
+
 /*---------------------------- preloader area ----------------------------*/
  .loader_bg {
      position: fixed;
@@ -593,7 +597,7 @@
 /** end service **/
 /** pricing **/
  .pricing {
-     padding-top: 90px;
+     padding-top: 30px;
      background: url(../images/pricing_bg.jpg);
      background-size: 100% 100%;
      background-repeat: no-repeat;
@@ -669,11 +673,11 @@
      border: #00aeef solid 1px;
 }
  .opening {
-    padding: 80px 0 90px 0;
+    padding: 80px 500px 90px 500px;
 }
  .opening_bg {
     background: #37baebba;
-     padding: 59px 53px;
+     padding: 59px 40px;
 }
  .times ul li {
     display: block;
@@ -743,7 +747,7 @@
      margin-bottom: 25px;
      padding: 12px 20px;
      background: #00aeef;
-     color: #fff;
+    color: #fff;
      font-family: poppins;
 }
  .form-control:focus {
