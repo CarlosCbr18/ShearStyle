@@ -34,7 +34,6 @@
     <div class="loader_bg">
         <div class="loader"><img src="images/loading.gif" alt="" /></div>
     </div>
-yatusabe
     <div class="wrapper">
         <!-- end loader -->
 
@@ -82,7 +81,7 @@ yatusabe
                 <div class="row">
                     <div class="col-md-3">
                         <div class="full">
-                            <a class="logo" href="index.html"><img src="images/logo.png" alt="#" /></a>
+                            <a class="logo" href="index.php"><img src="images/logo.png" alt="#" /></a>
                         </div>
                     </div>
                     <div class="col-md-9">
