@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <?php
 ob_start(); // Inicia el almacenamiento en búfer de salida
 session_start(); 
+?>
+<?php
+
+
+if (isset($_SESSION["ID"])) {
+    $id = $_SESSION["ID"]; // Recupera el ID de la sesión
+}
 ?>
 <?php
 $servername = "localhost";
@@ -96,7 +104,7 @@ if(!$bd) {
 
         <div id="content">
             <!-- header -->
-          <header>
+        <header>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
@@ -110,9 +118,20 @@ if(!$bd) {
                                 <ul>
                                     <li class="dinone"><img style="margin-right: 15px;margin-left: 15px;" src="images/phone_icon.png" alt="#"><a href="#">956 14 32 56</a></li>
                                     <li class="dinone"><img style="margin-right: 15px;" src="images/mail_icon.png" alt="#"><a href="#">ShearStyle@gmail.com</a></li>
+                                    <?php
+                                    if (isset($_SESSION["ID"])) {
+                                        echo "<li class='button_user'><a class='button active' href='logout.php'>Cerrar Sesión</a></li>";
 
-                                   
-                                    <li class="button_user"> <a class="button" href="login.php">Iniciar Sesión</a></li>
+                                        
+                                        
+                                        echo "<li class='button_user'><a class='button active' href='index_cliente.php'>Mi cuenta</a></li>";
+                                    } else{
+                                        
+                                    echo "<li class='button_user'><a class='button active' href='login.php'>Iniciar Sesión</a></li>";
+                                        echo "<li class='button_user'> <a class='button active' href='register.php'>Regístrate</a></li>";
+                                    }
+                                    ?>
+
 
                                     <li>
                                         <button type="button" id="sidebarCollapse">
@@ -127,7 +146,6 @@ if(!$bd) {
             </div>
         </header>
         <!-- end header -->
-
             <div class="yellow_bg">
                 <div class="container">
                     <div class="row">
@@ -320,7 +338,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }else{
         $clientes = mysqli_query($conn,'SELECT ID FROM cliente Where Email="'.$correo.'" and Contraseña="'.$contrasena.'"');
         if(mysqli_num_rows($clientes) > 0){
-            $id = mysqli_fetch_assoc($peluqueros);
+            $id = mysqli_fetch_assoc($clientes);
             $_SESSION["ID"] = $id['ID']; // Guarda el ID en la sesión
             header('Location: index.php'); //lo redirige a index.php
             exit();

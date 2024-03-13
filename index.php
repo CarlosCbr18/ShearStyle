@@ -89,9 +89,13 @@ if(!$bd) {
 
                 </li>
 
-                <li>
-                    <a href="contact.php">Solicita una Cita</a>
-                </li>
+                <?php 
+                        if (isset($_SESSION["ID"])) {
+                            echo " <li><a href='contact.php'>Solicita una cita</a> </li>";
+                        } else{
+                            echo "<li><a href='login.php'>Solicita una cita</a></li>";
+                        }
+                        ?>
             </ul>
 
         </nav>
@@ -114,9 +118,20 @@ if(!$bd) {
                                 <ul>
                                     <li class="dinone"><img style="margin-right: 15px;margin-left: 15px;" src="images/phone_icon.png" alt="#"><a href="#">956 14 32 56</a></li>
                                     <li class="dinone"><img style="margin-right: 15px;" src="images/mail_icon.png" alt="#"><a href="#">ShearStyle@gmail.com</a></li>
+                                    <?php
+                                    if (isset($_SESSION["ID"])) {
+                                        echo "<li class='button_user'><a class='button active' href='logout.php'>Cerrar Sesión</a></li>";
 
+                                        
+                                        
+                                        echo "<li class='button_user'><a class='button active' href='index_cliente.php'>Mi cuenta</a></li>";
+                                    } else{
+                                        
+                                    echo "<li class='button_user'><a class='button active' href='login.php'>Iniciar Sesión</a></li>";
+                                        echo "<li class='button_user'> <a class='button active' href='register.php'>Regístrate</a></li>";
+                                    }
+                                    ?>
 
-                                    <li class="button_user"> <a class="button" href="login.php">Iniciar Sesión</a></li>
 
                                     <li>
                                         <button type="button" id="sidebarCollapse">
@@ -140,7 +155,13 @@ if(!$bd) {
                     <span>Stylish Hair</span>
                     <h1>Crea tu<br>
                         look perfecto</h1>
-                    <a href="contact.php">Solicita una cita </a>
+                        <?php 
+                        if (isset($_SESSION["ID"])) {
+                            echo "<a href='contact.php'>Solicita una cita</a>";
+                        } else{
+                            echo "<a href='login.php'>Solicita una cita</a>";
+                        }
+                        ?>
                 </div>
             </div>
         </div>

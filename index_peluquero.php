@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <?php
 session_start(); // Inicia la sesión
 
@@ -78,6 +79,12 @@ if(!$bd) {
                                 <ul>
                                     <li class="dinone"><img style="margin-right: 15px;margin-left: 15px;" src="images/phone_icon.png" alt="#"><a href="#">956 14 32 56</a></li>
                                     <li class="dinone"><img style="margin-right: 15px;" src="images/mail_icon.png" alt="#"><a href="#">ShearStyle@gmail.com</a></li>
+                                    <?php
+                                    if (isset($_SESSION["ID"])) {
+                                        echo "<li class='button_user'><a class='button active' href='logout.php'>Cerrar Sesión</a></li>";
+
+                                    } 
+                                    ?>
                                 </ul>
                             </div>
                         </div>
