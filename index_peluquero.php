@@ -109,7 +109,7 @@ if(!$bd) {
                 $fecha_formato = date('d-m-Y', strtotime($row["Fecha"]));  // Pone la fecha en formato dd-mm-aaaa
                 $nombre_cli = mysqli_fetch_assoc($cliente);
                 echo "<tr><td>". $row["hora"] . "</td><td>". $fecha_formato  . "</td><td>". $nombre_cli['nombre'] . "</td>";
-                echo "<td><a href='eliminar_cita.php?id_cita=".$row["ID"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
+                echo "<td><a href='eliminar_cita.php?id_cita=".$row["ID"]."&id_cliente=".$row["ID_CLI"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
             }
             echo "</table>";
         } else {
