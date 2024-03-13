@@ -60,41 +60,6 @@ if(!$bd) {
 <div class="wrapper">
     <!-- end loader -->
 
-    <div class="sidebar">
-        <!-- Sidebar  -->
-        <nav id="sidebar">
-
-            <div id="dismiss">
-                <i class="fa fa-arrow-left"></i>
-            </div>
-
-            <ul class="list-unstyled components">
-
-                <li class="active">
-                    <a href="index.php">Home</a>
-                </li>
-                <li>
-                    <a href="about.php">Sobre Nosotros</a>
-                </li>
-                <li>
-                    <a href="service.php">Servicios</a>
-                </li>
-                <li>
-                    <a href="pricing.php">Precios</a>
-                </li>
-
-                <li>
-                    <a href="barbers.php">Nuestros Peluqueros</a>
-
-                </li>
-
-                <li>
-                    <a href="contact.php">Solicita una Cita</a>
-                </li>
-            </ul>
-
-        </nav>
-    </div>
 
     <div id="content">
         <!-- header -->
@@ -113,15 +78,6 @@ if(!$bd) {
                                 <ul>
                                     <li class="dinone"><img style="margin-right: 15px;margin-left: 15px;" src="images/phone_icon.png" alt="#"><a href="#">956 14 32 56</a></li>
                                     <li class="dinone"><img style="margin-right: 15px;" src="images/mail_icon.png" alt="#"><a href="#">ShearStyle@gmail.com</a></li>
-
-
-                                    <li class="button_user"> <a class="button" href="login.php">Iniciar Sesión</a></li>
-
-                                    <li>
-                                        <button type="button" id="sidebarCollapse">
-                                            <a href="#">MENU</a>
-                                        </button>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -131,21 +87,35 @@ if(!$bd) {
         </header>
         <!-- end header -->
         <!-- end header -->
-        <!-- start slider section -->
-        <?php
-$citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id");
+        <form method="post" action="">
+            <label for="fecha">Buscar por fecha:</label>
+            <input type="date" id="fecha" name="fecha">
+            <input type="submit" value="Buscar">
+        </form>
 
-if (mysqli_num_rows($citas) > 0) {
-    echo "<table>";
-    echo "<tr><th>ID</th><th>ID_PELU</th><th>ID_SERV</th><th>ID_CLI</th><th>Fecha</th></tr>";
-    while($row = mysqli_fetch_assoc($citas)) {
-        echo "<tr><td>" . $row["ID"] . "</td><td>" . $row["ID_PELU"] . "</td><td>" . $row["ID_SERV"] . "</td><td>" . $row["ID_CLI"] . "</td><td>" . $row["Fecha"] . "</td></tr>";
-    }
-    echo "</table>";
-} else {
-    echo "No hay citas para este peluquero.";
-}
-?>
+        <?php
+        $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
+        if ($fecha) {
+         $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id AND Fecha = '$fecha' ORDER BY hora DESC");
+        } else {
+            $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id ORDER BY Fecha ASC, hora ASC");
+        }
+
+        if (mysqli_num_rows($citas) > 0) {
+            echo "<table style='margin: auto; width: 50%; border-collapse: collapse; text-align: center;'>";
+            echo "<tr style='background-color: #f2f2f2;'><th>Hora</th><th>Fecha</th><th>Cliente</th><th> </th></tr>";
+            while($row = mysqli_fetch_assoc($citas)) {
+                $cliente = mysqli_query($conn,"SELECT nombre FROM cliente WHERE ID = $row[ID_CLI]");
+                $fecha_formato = date('d-m-Y', strtotime($row["Fecha"]));  // Pone la fecha en formato dd-mm-aaaa
+                $nombre_cli = mysqli_fetch_assoc($cliente);
+                echo "<tr><td>". $row["hora"] . "</td><td>". $fecha_formato  . "</td><td>". $nombre_cli['nombre'] . "</td>";
+                echo "<td><a href='eliminar_cita.php?id_cita=".$row["ID"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "No hay citas para este peluquero en la fecha seleccionada.";
+        }
+        ?>
 
             <!-- footer -->
 
