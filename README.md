@@ -9,7 +9,7 @@ ShearStyle es una web HTML, CSS, Javascript, Framework Bootstrap y PHP para una 
   
  ## Arrancar la Aplicación Web
 Para ello, deberás instalarte XAMPP y guardar el proyoecto en XAMPP --> htdocs.
-Inicias Apache y MySQL en XAMPP y accedes a http://localhost/Shearstyle%20Salon/ShearStyle/ShearStyle/index.php 
+Inicias Apache y MySQL en XAMPP y accedes a http://localhost/ruta a index.php desde dentro de htdocs.
 
 ## Herramientas de desarrollo web usadas
 - HTML: Lenguaje de marcado usado para dar estructura al proyecto.
