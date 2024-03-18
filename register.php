@@ -37,7 +37,7 @@ if(!$bd) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Login ShearStyle</title>
+    <title>Register ShearStyle</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -151,7 +151,7 @@ if(!$bd) {
                     <div class="row">
                         <div class="col-md-12">
                             <div class="title">
-                                <h2>Incio Sesión</h2>
+                                <h2>Registro</h2>
 
                             </div>
                         </div>
@@ -168,42 +168,33 @@ if(!$bd) {
                             <div class="opening_bg">
                                 
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" style="max-width: none;">
-                                        <div class="form_section">
-                                            <form action="login.php" method="post">
-                                                <div class="container">
+                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                                        <div class="form-group
+                                        ">
+                                            <label for="text">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" placeholder="Introduce tu nombre" name="nombre">
+                                            <label for="exampleInputEmail1">Correo Electrónico</label>
+                                            <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" placeholder="Introduce tu correo" name="correo">
+                                            <label for="exampleInputPassword1">Contraseña</label>
+                                            <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena">
+            
+                                            <label for="exampleInputPassword1">Repite Contraseña</label>
+                                            <input type="password" class="form-control" id="contrasena2" placeholder="Repite Contraseña" name="contrasena2">
+                                            <label for="Phone">Teléfono</label>
+                                            <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
+
+                                            <button type="submit" class="btn btn-primary">Registrarse</button>
+
+
+
+                                        
+
+
+                                        
                                                     
-                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="align-items: center;">
-                                                            
-                                                        </div>
-                                                    
-                                                    <div class="row">
-                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                                            <input class="form-control" placeholder="Correo" type="text" name="correo" style="width: 200px; background-color: #fff;border: #ffff
-                                                             solid 2px;
-                                                            border-radius: inherit;
-                                                            margin-bottom: 25px;
-                                                            padding: 12px 20px;
-                                                            background: #fff;
-                                                           color: #000;
-                                                            font-family: poppins;width: 100%; ">
-                                                        </div>
-                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                                            <input class="form-control" placeholder="Contraseña" type="password" name="contrasena"style="width: 200px; background-color: #fff;border: #ffff
-                                                            solid 2px;
-                                                           border-radius: inherit;
-                                                           margin-bottom: 25px;
-                                                           padding: 12px 20px;
-                                                           background: #fff;
-                                                          color: #000;
-                                                           font-family: poppins;width: 100%; ">
-                                                        </div>
-                                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                                            <button class="send">Iniciar Sesión</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
+                                                
+                                            
+                                        
 
                                     </div>
                                     
@@ -325,39 +316,44 @@ if(!$bd) {
 
 </body>
 <?php
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $correo = $_POST['correo'];
-    $contrasena = $_POST['contrasena'];
-    $peluqueros = mysqli_query($conn,'SELECT ID,Contraseña FROM peluquero Where Email="'.$correo.'"');
-    if(mysqli_num_rows($peluqueros) > 0){
-        $id = mysqli_fetch_assoc($peluqueros);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre = $_POST["nombre"];
+    $correo = $_POST["correo"];
+    $contrasena = $_POST["contrasena"];
+    $contrasena2 = $_POST["contrasena2"];
+    $telefono = $_POST["telefono"];
 
-        if(password_verify($contrasena, $id['Contraseña'])){
-        $_SESSION["ID"] = $id['ID']; // Guarda el ID en la sesión
-        header('Location: index_peluquero.php'); //lo redirige a index.php se puede cambiar a index_peluquero.php
-        exit();
-        }
-        //añadir cosas para que guarde que es peluquero
-    
- }else{
-        $clientes = mysqli_query($conn,'SELECT ID,Contraseña FROM cliente Where Email="'.$correo.'"');
-        if(mysqli_num_rows($clientes) > 0){
-            $id = mysqli_fetch_assoc($clientes);
+    $cons = mysqli_query($conn,'SELECT ID FROM cliente Where Email="'.$correo.'"');
 
-            if(password_verify($contrasena, $id['Contraseña'])){
-            $_SESSION["ID"] = $id['ID']; // Guarda el ID en la sesión
-            header('Location: index.php'); //lo redirige a index.php
-            exit();
+    if (mysqli_num_rows($cons) > 0) {
+        echo "<script>alert('El correo ya está en uso');</script>";
+    } else {
+        if ($contrasena === $contrasena2) {
+           
+            $hashedPassword = password_hash($contrasena, PASSWORD_DEFAULT);
+            //Hacer insert de los datos del cliente
+            $sql = "INSERT INTO cliente (Nombre, Email, Telefono, Contraseña) VALUES ('$nombre', '$correo', '$telefono', '$hashedPassword')";
+
+
+            if ($conn->query($sql) === TRUE) {
+                header("Location: login.php");
+            } else {
+                header("Location: index.php");
             }
-            //añadir cosas para que guarde que es cliente
+
+          
+          
+        
+        } else {
+            echo "<script>alert('Las contraseñas no coinciden');</script>";
         }
     }
-    echo "<script>alert('Correo o contraseña incorrectos');</script>";
+    
+   
+    
 }
 
-
-
-
+$conn->close();
 ?>
 <?php
 ob_end_flush(); // Envía la salida al navegador

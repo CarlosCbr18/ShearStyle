@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cita` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) AUTO_INCREMENT PRIMARY KEY,
   `ID_PELU` int(11) NOT NULL,
   `ID_SERV` int(11) NOT NULL,
   `ID_CLI` int(11) NOT NULL
@@ -41,7 +41,7 @@ CREATE TABLE `cita` (
 --
 
 CREATE TABLE `cliente` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) AUTO_INCREMENT PRIMARY KEY,
   `Nombre` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `Telefono` varchar(20) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `cliente` (
 --
 
 CREATE TABLE `pago` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) AUTO_INCREMENT PRIMARY KEY,
   `ID_CLI` int(11) NOT NULL,
   `ID_CIT` int(11) NOT NULL,
   `ID_SERV` int(11) NOT NULL
@@ -68,7 +68,7 @@ CREATE TABLE `pago` (
 --
 
 CREATE TABLE `peluquero` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) AUTO_INCREMENT PRIMARY KEY,
   `Nombre` varchar(50) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Telefono` varchar(15) DEFAULT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE `peluquero` (
 --
 
 CREATE TABLE `servicio` (
-  `ID` int(11) NOT NULL,
+  `ID` int(11) AUTO_INCREMENT PRIMARY KEY,
   `Nombre` varchar(255) NOT NULL,
   `Descripcion` text NOT NULL,
   `Duracion` int(11) NOT NULL,
@@ -98,22 +98,16 @@ CREATE TABLE `servicio` (
 -- Indices de la tabla `cita`
 --
 ALTER TABLE `cita`
-  ADD PRIMARY KEY (`ID`),
+  
   ADD KEY `ID_PELU` (`ID_PELU`),
   ADD KEY `ID_SERV` (`ID_SERV`),
   ADD KEY `ID_CLI` (`ID_CLI`);
 
---
--- Indices de la tabla `cliente`
---
-ALTER TABLE `cliente`
-  ADD PRIMARY KEY (`ID`);
 
 --
 -- Indices de la tabla `pago`
 --
 ALTER TABLE `pago`
-  ADD PRIMARY KEY (`ID`),
   ADD KEY `ID_SERV` (`ID_SERV`),
   ADD KEY `ID_CLI` (`ID_CLI`),
   ADD KEY `ID_CIT` (`ID_CIT`);
@@ -122,14 +116,12 @@ ALTER TABLE `pago`
 -- Indices de la tabla `peluquero`
 --
 ALTER TABLE `peluquero`
-  ADD PRIMARY KEY (`ID`),
+ 
   ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Indices de la tabla `servicio`
 --
-ALTER TABLE `servicio`
-  ADD PRIMARY KEY (`ID`);
 
 --
 -- Restricciones para tablas volcadas
@@ -150,6 +142,8 @@ ALTER TABLE `pago`
   ADD CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`ID_SERV`) REFERENCES `servicio` (`ID`),
   ADD CONSTRAINT `pago_ibfk_2` FOREIGN KEY (`ID_CLI`) REFERENCES `cliente` (`ID`),
   ADD CONSTRAINT `pago_ibfk_3` FOREIGN KEY (`ID_CIT`) REFERENCES `cita` (`ID`);
+
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
