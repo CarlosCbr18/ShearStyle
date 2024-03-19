@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-session_start(); // Inicia la sesión
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_SESSION["ID"])) {
     $id = $_SESSION["ID"]; // Recupera el ID de la sesión
@@ -169,9 +172,9 @@ if(!$bd) {
 
                             <form class="main_form" action="procesar_reserva.php" method="post">
                                 <div class="row">
-
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <input class="form-control" id="fecha" placeholder="Fecha" type="date" name="fecha">
+                                        <input class="form-control" id="fecha" placeholder="Fecha" type="date" name="fecha" min="<?php echo date('Y-m-d'); ?>" max= "<?php echo date('Y-m-d', strtotime('+5 months')); ?>"> 
+                                        
                                     </div>
 
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -334,7 +337,12 @@ if(!$bd) {
                 })
             })
         </script>
+    <?php
+    if (isset($_SESSION['alerta'])) {           //manda una alerta dependiendo del mensaje que se le pase desde procesar_reserva
+        echo "<script type='text/javascript'>alert('" . $_SESSION['alerta'] . "');</script>";
+        unset($_SESSION['alerta']);
+    }
+    ?>
 
 </body>
-
 </html>
