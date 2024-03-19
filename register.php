@@ -176,16 +176,51 @@ if(!$bd) {
                                         <div class="form-group
                                         ">
                                             <label for="text">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" placeholder="Introduce tu nombre" name="nombre">
+                                            <input type="text" class="form-control" id="nombre" placeholder="Introduce tu nombre" name="nombre" style="width: 200px; background-color: #fff;border: #ffff
+                                                            solid 2px;
+                                                           border-radius: inherit;
+                                                           margin-bottom: 25px;
+                                                           padding: 12px 20px;
+                                                           background: #fff;
+                                                          color: #000;
+                                                           font-family: poppins;width: 100%; ">
                                             <label for="exampleInputEmail1">Correo Electrónico</label>
-                                            <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" placeholder="Introduce tu correo" name="correo">
+                                            <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" placeholder="Introduce tu correo" name="correo"style="width: 200px; background-color: #fff;border: #ffff
+                                                            solid 2px;
+                                                           border-radius: inherit;
+                                                           margin-bottom: 25px;
+                                                           padding: 12px 20px;
+                                                           background: #fff;
+                                                          color: #000;
+                                                           font-family: poppins;width: 100%; ">
                                             <label for="exampleInputPassword1">Contraseña</label>
-                                            <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena">
+                                            <input type="password" class="form-control" id="contrasena" placeholder="Contraseña" name="contrasena"style="width: 200px; background-color: #fff;border: #ffff
+                                                            solid 2px;
+                                                           border-radius: inherit;
+                                                           margin-bottom: 25px;
+                                                           padding: 12px 20px;
+                                                           background: #fff;
+                                                          color: #000;
+                                                           font-family: poppins;width: 100%; ">
             
                                             <label for="exampleInputPassword1">Repite Contraseña</label>
-                                            <input type="password" class="form-control" id="contrasena2" placeholder="Repite Contraseña" name="contrasena2">
+                                            <input type="password" class="form-control" id="contrasena2" placeholder="Repite Contraseña" name="contrasena2" style="width: 200px; background-color: #fff;border: #ffff
+                                                            solid 2px;
+                                                           border-radius: inherit;
+                                                           margin-bottom: 25px;
+                                                           padding: 12px 20px;
+                                                           background: #fff;
+                                                          color: #000;
+                                                           font-family: poppins;width: 100%; ">
                                             <label for="Phone">Teléfono</label>
-                                            <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono">
+                                            <input type="text" class="form-control" id="telefono" placeholder="Teléfono" name="telefono"style="width: 200px; background-color: #fff;border: #ffff
+                                                            solid 2px;
+                                                           border-radius: inherit;
+                                                           margin-bottom: 25px;
+                                                           padding: 12px 20px;
+                                                           background: #fff;
+                                                          color: #000;
+                                                           font-family: poppins;width: 100%; ">
 
                                             <button type="submit" class="btn btn-primary">Registrarse</button>
 
