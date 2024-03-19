@@ -89,13 +89,9 @@ if(!$bd) {
 
                     </li>
 
-                    <?php 
-                        if (isset($_SESSION["ID"])) {
-                            echo " <li><a href='contact.php'>Solicita una cita</a> </li>";
-                        } else{
-                            echo "<li><a href='login.php'>Solicita una cita</a></li>";
-                        }
-                        ?>
+                    <li>
+                        <a href="contact.php">Solicita una Cita</a>
+                    </li>
                 </ul>
 
             </nav>
@@ -171,11 +167,11 @@ if(!$bd) {
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
 
-                            <form class="main_form">
+                            <form class="main_form" action="procesar_reserva.php" method="post">
                                 <div class="row">
 
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                        <input class="form-control" placeholder="Fecha" type="date" name=" Fecha">
+                                        <input class="form-control" id="fecha" placeholder="Fecha" type="date" name="fecha">
                                     </div>
 
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -201,7 +197,7 @@ if(!$bd) {
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                         <label for="opciones"><h1 style="color:white">Selecciona una opción:<br></h1></label>
-                                            <select id="opciones" name="opciones"  style="width: 200px; background-color: #00aeef;border: #00aeef solid 2px;
+                                            <select id="servicio" name="servicio" style="width: 200px; background-color: #00aeef;border: #00aeef solid 2px;
                                             border-radius: inherit;
                                             margin-bottom: 25px;
                                             padding: 12px 20px;
@@ -210,9 +206,9 @@ if(!$bd) {
                                             font-family: poppins; margin-left: 20px;">
                                             <option value="opcion0" disabled selected>Selecciona</option>
                                             <?php
-                                                $servicios = mysqli_query($conn,'SELECT nombre,precio FROM servicio');
+                                                $servicios = mysqli_query($conn,'SELECT ID,nombre,precio FROM servicio');
                                             while($row = mysqli_fetch_array($servicios)){
-                                                echo "<option value=".$row['nombre']." >".$row['nombre']."</option>";
+                                                echo "<option value=".$row['ID']." >".$row['nombre']." ".$row['precio']."€"."</option>";
                                             }
                                             ?>
                                             </select>
