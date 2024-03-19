@@ -32,6 +32,8 @@ CREATE TABLE `cita` (
   `ID_PELU` int(11) NOT NULL,
   `ID_SERV` int(11) NOT NULL,
   `ID_CLI` int(11) NOT NULL
+    `Fecha` date NOT NULL,
+  `hora` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
