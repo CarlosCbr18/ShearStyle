@@ -2,9 +2,7 @@
 <html lang="en">
     
 <?php
-if (session_status() == PHP_SESSION_NONE) {
     session_start();    //inicia la sesion
-}
 
 if (isset($_SESSION["ID"])) {
     $id = $_SESSION["ID"]; // Recupera el ID de la sesión
@@ -108,7 +106,7 @@ if(!$bd) {
         if ($fecha) {
          $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_CLI = $id AND Fecha = '$fecha' ORDER BY hora DESC");
         } else {
-            $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_CLI = $id ORDER BY Fecha ASC, hora ASC");
+            $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_CLI = $id ORDER BY Fecha DESC, hora DESC");
         }
 
         if (mysqli_num_rows($citas) > 0) {
@@ -119,7 +117,7 @@ if(!$bd) {
                 $fecha_formato = date('d-m-Y', strtotime($row["Fecha"]));  // Pone la fecha en formato dd-mm-aaaa
                 $nombre_cli = mysqli_fetch_assoc($cliente);
                 echo "<tr><td>". $row["hora"] . "</td><td>". $fecha_formato  . "</td><td>". $nombre_cli['nombre'] . "</td>";
-                echo "<td><a href='eliminar_cita_cliente.php?id_cita=".$row["ID"]."&id_pelu=".$row["ID_PELU"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
+                echo "<td><a href='eliminar_cita_cliente.php?id_cita=".$row["id"]."&id_pelu=".$row["ID_PELU"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
             }
             echo "</table>";
         } else {

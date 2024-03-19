@@ -107,7 +107,7 @@ if(!$bd) {
         if ($fecha) {
          $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id AND Fecha = '$fecha' ORDER BY hora DESC");
         } else {
-            $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id ORDER BY Fecha ASC, hora ASC");
+            $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id ORDER BY Fecha DESC, hora DESC");
         }
 
         if (mysqli_num_rows($citas) > 0) {
