@@ -2,13 +2,16 @@
 <html lang="en">
     
 <?php
-session_start(); // Inicia la sesión
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();    //inicia la sesion
+}
 
 if (isset($_SESSION["ID"])) {
     $id = $_SESSION["ID"]; // Recupera el ID de la sesión
 }else{
     echo"No se ha recuperado el id de la sesion";
 }
+
 ?>
 <?php
 $servername = "localhost";
@@ -230,7 +233,12 @@ if(!$bd) {
                 })
             })
         </script>
-
+    <?php
+    if (isset($_SESSION['alerta'])) {
+        echo "<script type='text/javascript'>alert('" . $_SESSION['alerta'] . "');</script>";
+        unset($_SESSION['alerta']);
+    }
+    ?>
 </body>
 
 </html>

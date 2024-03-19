@@ -5,7 +5,9 @@ use PHPMailer\PHPMailer\Exception;
 require './PHPMailer/src/PHPMailer.php';
 require './PHPMailer/src/SMTP.php';
 require './PHPMailer/src/Exception.php';
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 // Crear una nueva instancia de PHPMailer
 $mail = new PHPMailer(true);
 
@@ -61,8 +63,10 @@ if ($result) {
     } catch (Exception $e) {
         echo 'Hubo un error al enviar el correo: ', $mail->ErrorInfo;
     }
+    $_SESSION['alerta'] = 'La cita se ha cancelado.';
     header('Location: index_peluquero.php');
 } else {
-    echo "Error al eliminar la cita.";
+    $_SESSION['alerta'] = 'Error al cancelar cita.';
+    header('Location: index_peluquero.php');
 }
 ?>

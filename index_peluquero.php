@@ -2,7 +2,9 @@
 <html lang="en">
     
 <?php
-session_start(); // Inicia la sesión
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_SESSION["ID"])) {
     $id = $_SESSION["ID"]; // Recupera el ID de la sesión
@@ -230,7 +232,12 @@ if(!$bd) {
                 })
             })
         </script>
-
+    <?php
+    if (isset($_SESSION['alerta'])) {           //manda una alerta dependiendo del mensaje que se le pase desde eliminar_cita
+        echo "<script type='text/javascript'>alert('" . $_SESSION['alerta'] . "');</script>";
+        unset($_SESSION['alerta']);
+    }
+    ?>
 </body>
 
 </html>
