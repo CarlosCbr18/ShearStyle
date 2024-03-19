@@ -62,7 +62,7 @@ if (mysqli_num_rows($peluquero) > 0) {
     $id_pelu=$row["ID"];
     $email_pelu= $row["email"];
     $nombre_pelu= $row["nombre"];
-    echo $id_pelu;
+
     $insertar = "INSERT INTO cita (id_pelu, id_serv, id_cli, Fecha, hora, hora_fin) VALUES ('$id_pelu' , '$id_servicio',$id, '$fecha', '$hora','$hora_cita_fin')";
 
     // Ejecutar la sentencia SQL
@@ -102,7 +102,7 @@ if (mysqli_num_rows($peluquero) > 0) {
         // Contenido del correo
         $mail_cli->isHTML(true);
         $mail_cli->Subject = 'Nueva cita en ShearStyle Salon';
-        $mail_cli->Body    = 'Usted ha reservado una cita el '.$fecha_formato.' a las '.$hora.'.\n Muchas gracias por su reserva.';
+        $mail_cli->Body    = 'Usted ha reservado una cita el '.$fecha_formato.' a las '.$hora.'.<br> Muchas gracias por su reserva.';
         $mail_cli->send();
         $_SESSION['alerta'] = 'La cita se ha reservado.';
         header('Location: contact.php');
