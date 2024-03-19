@@ -31,7 +31,7 @@ CREATE TABLE `cita` (
   `ID` int(11) AUTO_INCREMENT PRIMARY KEY,
   `ID_PELU` int(11) NOT NULL,
   `ID_SERV` int(11) NOT NULL,
-  `ID_CLI` int(11) NOT NULL
+  `ID_CLI` int(11) NOT NULL,
     `Fecha` date NOT NULL,
   `hora` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -74,7 +74,7 @@ CREATE TABLE `peluquero` (
   `Nombre` varchar(50) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Telefono` varchar(15) DEFAULT NULL,
-  `Contraseña` varchar(50) NOT NULL,
+  `Contraseña` varchar(255) NOT NULL,
   `Foto` mediumblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -100,7 +100,7 @@ CREATE TABLE `administrador` (
   `ID` int(11) AUTO_INCREMENT PRIMARY KEY,
   `Nombre` varchar(50) NOT NULL,
   `Email` varchar(100) NOT NULL,
-  `Contraseña` varchar(50) NOT NULL
+  `Contraseña` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

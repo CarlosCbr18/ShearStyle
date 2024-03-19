@@ -28,6 +28,7 @@ if(!$bd) {
 // Crear admin si no existe
 
 $admin = mysqli_query($conn, "SELECT ID FROM administrador");
+
 if(mysqli_num_rows($admin) == 0){
     $contrasena = "admin";
 
@@ -37,6 +38,21 @@ if(mysqli_num_rows($admin) == 0){
     $insertar = "INSERT INTO administrador (Nombre, Email,Contraseña) VALUES ('admin', 'admin@gmail.com', '$hashedPassword')";
     if (mysqli_query($conn, $insertar)) {
     } else {
+    }
+
+    //Compruebo que la contraseña hasheada de la base de datos coincide con 'admin' a partir de password_verify
+    $sql = "SELECT Contraseña FROM administrador WHERE Nombre='admin'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+
+    //Imprimir contraseña almacenada en la base de datos
+    $succes = password_verify($contrasena, $row['Contraseña']);
+
+    if ($succes) {
+        echo "<script>alert('Contraseña correcta');</script>";
+    
+    } else {
+        echo "<script>alert('Contraseña incorrecta');</script>";
     }
     
 }
