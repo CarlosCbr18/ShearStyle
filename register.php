@@ -94,9 +94,13 @@ if(!$bd) {
 
                     </li>
 
-                    <li>
-                        <a href="contact.php">Solicita una Cita</a>
-                    </li>
+                    <?php 
+                        if (isset($_SESSION["ID"])) {
+                            echo " <li><a href='contact.php'>Solicita una cita</a> </li>";
+                        } else{
+                            echo "<li><a href='login.php'>Solicita una cita</a></li>";
+                        }
+                        ?>
                 </ul>
 
             </nav>

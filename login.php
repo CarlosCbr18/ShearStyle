@@ -94,9 +94,13 @@ if(!$bd) {
 
                     </li>
 
-                    <li>
-                        <a href="contact.php">Solicita una Cita</a>
-                    </li>
+                    <?php 
+                        if (isset($_SESSION["ID"])) {
+                            echo " <li><a href='contact.php'>Solicita una cita</a> </li>";
+                        } else{
+                            echo "<li><a href='login.php'>Solicita una cita</a></li>";
+                        }
+                        ?>
                 </ul>
 
             </nav>
@@ -328,8 +332,21 @@ if(!$bd) {
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
+    $admin = mysqli_query($conn,'SELECT ID,Contraseña FROM administrador Where Email="'.$correo.'"');
+    if(mysqli_num_rows($admin) > 0){
+        $id = mysqli_fetch_assoc($admin);
+
+        if(password_verify($contrasena, $id['Contraseña'])){
+            echo "<script>alert('HOLAAAAA1');</script>";
+
+        $_SESSION["ID"] = $id['ID']; // Guarda el ID en la sesión
+        header('Location: index_admin.php'); //lo redirige a index.php
+        exit();
+        }
+    }else{
+
     $peluqueros = mysqli_query($conn,'SELECT ID,Contraseña FROM peluquero Where Email="'.$correo.'"');
-    if(mysqli_num_rows($peluqueros) > 0){
+     if(mysqli_num_rows($peluqueros) > 0){
         $id = mysqli_fetch_assoc($peluqueros);
 
         if(password_verify($contrasena, $id['Contraseña'])){
@@ -337,7 +354,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         header('Location: index_peluquero.php'); //lo redirige a index.php se puede cambiar a index_peluquero.php
         exit();
         }
-        //añadir cosas para que guarde que es peluquero
     
  }else{
         $clientes = mysqli_query($conn,'SELECT ID,Contraseña FROM cliente Where Email="'.$correo.'"');
@@ -349,10 +365,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             header('Location: index.php'); //lo redirige a index.php
             exit();
             }
-            //añadir cosas para que guarde que es cliente
         }
     }
-    echo "<script>alert('Correo o contraseña incorrectos');</script>";
+}
+echo "<script>alert('Correo o contraseña incorrectos');</script>";
+
 }
 
 

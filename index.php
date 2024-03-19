@@ -23,6 +23,23 @@ $bd = mysqli_select_db($conn, 'peluqueria');
 if(!$bd) {
     echo"Error al seleccionar la base de datos.";
 }
+
+
+// Crear admin si no existe
+
+$admin = mysqli_query($conn, "SELECT ID FROM administrador");
+if(mysqli_num_rows($admin) == 0){
+    $contrasena = "admin";
+
+    $hashedPassword = password_hash($contrasena, PASSWORD_DEFAULT);
+
+
+    $insertar = "INSERT INTO administrador (Nombre, Email,Contraseña) VALUES ('admin', 'admin@gmail.com', '$hashedPassword')";
+    if (mysqli_query($conn, $insertar)) {
+    } else {
+    }
+    
+}
 ?>
 <head>
     <!-- basic -->
@@ -146,7 +163,7 @@ if(!$bd) {
             </div>
         </header>
         <!-- end header -->
-        <!-- end header -->
+        
         <!-- start slider section -->
         <div class="slider_section banner_bg">
             <img src="images/banner.jpg">
@@ -216,22 +233,22 @@ if(!$bd) {
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                             <div class="service_box">
                                                 <figure><img src="images/ser1.png"></figure>
-                                                <h3>Clean Shave</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
+                                                <h3>Afeitado Limpio</h3>
+                                                <p>Experimenta la suavidad y precisión en cada pasada.</p>
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                             <div class="service_box">
                                                 <figure><img src="images/ser.png"></figure>
-                                                <h3> Haircut Styles</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
+                                                <h3> Variedad de cortes de pelo</h3>
+                                                <p>Descubre estilos únicos que reflejan tu personalidad.</p>
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                             <div class="service_box">
                                                 <figure><img src="images/ser3.png"></figure>
-                                                <h3>Face Masking</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
+                                                <h3>Mascarillas Faciales</h3>
+                                                <p>Transforma tu piel con cuidado y rejuvenecimiento.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -246,22 +263,22 @@ if(!$bd) {
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                             <div class="service_box">
                                                 <figure><img src="images/ser1.png"></figure>
-                                                <h3>Clean Shave</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
+                                                <h3>Afeitado Limpio</h3>
+                                                <p>Experimenta la suavidad y precisión en cada pasada.</p>
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                             <div class="service_box">
                                                 <figure><img src="images/ser.png"></figure>
-                                                <h3> Haircut Styles</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
+                                                <h3>Variedad de cortes de pelo</h3>
+                                                <p>Descubre estilos únicos que reflejan tu personalidad.</p>
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                             <div class="service_box">
                                                 <figure><img src="images/ser3.png"></figure>
-                                                <h3>Face Masking</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
+                                                <h3>Mascarillas Faciales</h3>
+                                                <p>Transforma tu piel con cuidado y rejuvenecimiento.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -276,22 +293,22 @@ if(!$bd) {
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                             <div class="service_box">
                                                 <figure><img src="images/ser1.png"></figure>
-                                                <h3>Clean Shave</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
+                                                <h3>Afeitado Limpio</h3>
+                                                <p>Experimenta la suavidad y precisión en cada pasada.</p>
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                             <div class="service_box">
                                                 <figure><img src="images/ser.png"></figure>
-                                                <h3> Haircut Styles</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
+                                                <h3> Variedad de cortes de pelo</h3>
+                                                <p>Descubre estilos únicos que reflejan tu personalidad.</p>
                                             </div>
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                                             <div class="service_box">
                                                 <figure><img src="images/ser3.png"></figure>
-                                                <h3>Face Masking</h3>
-                                                <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
+                                                <h3>Mascarillas Faciales</h3>
+                                                <p>Transforma tu piel con cuidado y rejuvenecimiento.</p>
                                             </div>
                                         </div>
                                     </div>

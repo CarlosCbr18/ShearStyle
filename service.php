@@ -73,9 +73,13 @@ if (isset($_SESSION["ID"])) {
 
                     </li>
 
-                    <li>
-                        <a href="contact.php">Solicita una cita</a>
-                    </li>
+                    <?php 
+                        if (isset($_SESSION["ID"])) {
+                            echo " <li><a href='contact.php'>Solicita una cita</a> </li>";
+                        } else{
+                            echo "<li><a href='login.php'>Solicita una cita</a></li>";
+                        }
+                        ?>
                 </ul>
 
             </nav>
@@ -149,102 +153,102 @@ if (isset($_SESSION["ID"])) {
                             <li data-target="#myCarousel" data-slide-to="2"></li>
                         </ol>
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
+                        <div class="carousel-item active">
 
-                                <div class="container">
-                                    <div class="carousel-caption">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                                                <div class="service_box">
-                                                    <figure><img src="images/ser1.png"></figure>
-                                                    <h3>Clean Shave</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                                                <div class="service_box">
-                                                    <figure><img src="images/ser.png"></figure>
-                                                    <h3> Haircut Styles</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                                                <div class="service_box">
-                                                    <figure><img src="images/ser3.png"></figure>
-                                                    <h3>Face Masking</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
-                                                </div>
+                            <div class="container">
+                                <div class="carousel-caption">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="service_box">
+                                                <figure><img src="images/ser1.png"></figure>
+                                                <h3>Afeitado Limpio</h3>
+                                                <p>Experimenta la suavidad y precisión en cada pasada.</p>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-
-                                <div class="container">
-                                    <div class="carousel-caption">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                                                <div class="service_box">
-                                                    <figure><img src="images/ser1.png"></figure>
-                                                    <h3>Clean Shave</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                                                <div class="service_box">
-                                                    <figure><img src="images/ser.png"></figure>
-                                                    <h3> Haircut Styles</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                                                <div class="service_box">
-                                                    <figure><img src="images/ser3.png"></figure>
-                                                    <h3>Face Masking</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
-                                                </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="service_box">
+                                                <figure><img src="images/ser.png"></figure>
+                                                <h3> Variedad de cortes de pelo</h3>
+                                                <p>Descubre estilos únicos que reflejan tu personalidad.</p>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-
-                                <div class="container">
-                                    <div class="carousel-caption">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                                                <div class="service_box">
-                                                    <figure><img src="images/ser1.png"></figure>
-                                                    <h3>Clean Shave</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                                                <div class="service_box">
-                                                    <figure><img src="images/ser.png"></figure>
-                                                    <h3> Haircut Styles</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                                                <div class="service_box">
-                                                    <figure><img src="images/ser3.png"></figure>
-                                                    <h3>Face Masking</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur cing elit, sed do eiusmod tempor</p>
-                                                </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="service_box">
+                                                <figure><img src="images/ser3.png"></figure>
+                                                <h3>Mascarillas Faciales</h3>
+                                                <p>Transforma tu piel con cuidado y rejuvenecimiento.</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="carousel-item">
 
+                            <div class="container">
+                                <div class="carousel-caption">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="service_box">
+                                                <figure><img src="images/ser1.png"></figure>
+                                                <h3>Afeitado Limpio</h3>
+                                                <p>Experimenta la suavidad y precisión en cada pasada.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="service_box">
+                                                <figure><img src="images/ser.png"></figure>
+                                                <h3>Variedad de cortes de pelo</h3>
+                                                <p>Descubre estilos únicos que reflejan tu personalidad.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="service_box">
+                                                <figure><img src="images/ser3.png"></figure>
+                                                <h3>Mascarillas Faciales</h3>
+                                                <p>Transforma tu piel con cuidado y rejuvenecimiento.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+
+                            <div class="container">
+                                <div class="carousel-caption">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="service_box">
+                                                <figure><img src="images/ser1.png"></figure>
+                                                <h3>Afeitado Limpio</h3>
+                                                <p>Experimenta la suavidad y precisión en cada pasada.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="service_box">
+                                                <figure><img src="images/ser.png"></figure>
+                                                <h3> Variedad de cortes de pelo</h3>
+                                                <p>Descubre estilos únicos que reflejan tu personalidad.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="service_box">
+                                                <figure><img src="images/ser3.png"></figure>
+                                                <h3>Mascarillas Faciales</h3>
+                                                <p>Transforma tu piel con cuidado y rejuvenecimiento.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
+
             </div>
+        </div>
             <!-- end service -->
 
           <!-- footer -->

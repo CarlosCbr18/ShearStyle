@@ -93,8 +93,15 @@ CREATE TABLE `servicio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Índices para tablas volcadas
+-- Estructura de tabla para la tabla `administrador`
 --
+
+CREATE TABLE `administrador` (
+  `ID` int(11) AUTO_INCREMENT PRIMARY KEY,
+  `Nombre` varchar(50) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Contraseña` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indices de la tabla `cita`
