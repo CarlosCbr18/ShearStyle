@@ -72,7 +72,7 @@ if(!$bd) {
                 <div class="row">
                     <div class="col-md-3">
                         <div class="full">
-                            <a class="logo" href="index.php"><img src="images/logo.png" alt="#" /></a>
+                            <a class="logo" href="index_peluquero.php"><img src="images/logo.png" alt="#" /></a>
                         </div>
                     </div>
                     <div class="col-md-9">
@@ -133,7 +133,7 @@ if(!$bd) {
                     <div class="row">
                         <div class="col-md-12">
                             <div class="footer_logo">
-                                <a href="index.php"><img src="images/logo1.png" alt="logo" /></a>
+                                <a href="index_peluquero.php"><img src="images/logo1.png" alt="logo" /></a>
                             </div>
                         </div>
                         <div class="col-md-12">
