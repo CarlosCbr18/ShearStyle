@@ -337,7 +337,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $id = mysqli_fetch_assoc($admin);
 
         if(password_verify($contrasena, $id['Contraseña'])){
-            echo "<script>alert('HOLAAAAA1');</script>";
 
         $_SESSION["ID"] = $id['ID']; // Guarda el ID en la sesión
         header('Location: index_admin.php'); //lo redirige a index.php
