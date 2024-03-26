@@ -107,21 +107,21 @@ if(!$bd) {
          $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_CLI = $id AND Fecha = '$fecha' ORDER BY hora DESC");
         } else {
             $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_CLI = $id ORDER BY Fecha DESC, hora DESC");
-        }
+        }       //Si inserta una fecha se buscará por esa fecha si no mostrara todo
 
-        if (mysqli_num_rows($citas) > 0) {
+        if (mysqli_num_rows($citas) > 0) {      //Si hay citas se mostrarán 
             echo "<table style='margin: auto; width: 50%; border-collapse: collapse; text-align: center;'>";
             echo "<tr style='background-color: #f2f2f2;'><th>Hora</th><th>Fecha</th><th>Cliente</th><th> </th></tr>";
             while($row = mysqli_fetch_assoc($citas)) {
-                $cliente = mysqli_query($conn,"SELECT nombre FROM cliente WHERE ID = $row[ID_CLI]");
+             
                 $fecha_formato = date('d-m-Y', strtotime($row["Fecha"]));  // Pone la fecha en formato dd-mm-aaaa
-                $nombre_cli = mysqli_fetch_assoc($cliente);
-                echo "<tr><td>". $row["hora"] . "</td><td>". $fecha_formato  . "</td><td>". $nombre_cli['nombre'] . "</td>";
+ 
+                echo "<tr><td>". $row["hora"] . "</td><td>". $fecha_formato  . "</td>";
                 echo "<td><a href='eliminar_cita_cliente.php?id_cita=".$row["id"]."&id_pelu=".$row["ID_PELU"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
             }
             echo "</table>";
         } else {
-            echo "No hay citas para este peluquero en la fecha seleccionada.";
+            echo "No hay citas en la fecha seleccionada.";
         }
         ?>
 
