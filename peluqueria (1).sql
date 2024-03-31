@@ -31,10 +31,10 @@ CREATE TABLE `cita` (
   `ID` int(11) AUTO_INCREMENT PRIMARY KEY,
   `ID_PELU` int(11) NOT NULL,
   `ID_SERV` int(11) NOT NULL,
-  `ID_CLI` int(11) NOT NULL
+  `ID_CLI` int(11) NOT NULL,
   `Fecha` date NOT NULL,
   `hora` time NOT NULL,
-  `hora_fin` time NOT NULL,
+  `hora_fin` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -141,17 +141,17 @@ ALTER TABLE `peluquero`
 -- Filtros para la tabla `cita`
 --
 ALTER TABLE `cita`
-  ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`ID_PELU`) REFERENCES `peluquero` (`ID`),
-  ADD CONSTRAINT `cita_ibfk_2` FOREIGN KEY (`ID_SERV`) REFERENCES `servicio` (`ID`),
-  ADD CONSTRAINT `cita_ibfk_3` FOREIGN KEY (`ID_CLI`) REFERENCES `cliente` (`ID`);
+  ADD CONSTRAINT `cita_ibfk_1` FOREIGN KEY (`ID_PELU`) REFERENCES `peluquero` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cita_ibfk_2` FOREIGN KEY (`ID_SERV`) REFERENCES `servicio` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cita_ibfk_3` FOREIGN KEY (`ID_CLI`) REFERENCES `cliente` (`ID`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `pago`
 --
 ALTER TABLE `pago`
-  ADD CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`ID_SERV`) REFERENCES `servicio` (`ID`),
-  ADD CONSTRAINT `pago_ibfk_2` FOREIGN KEY (`ID_CLI`) REFERENCES `cliente` (`ID`),
-  ADD CONSTRAINT `pago_ibfk_3` FOREIGN KEY (`ID_CIT`) REFERENCES `cita` (`ID`);
+  ADD CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`ID_SERV`) REFERENCES `servicio` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pago_ibfk_2` FOREIGN KEY (`ID_CLI`) REFERENCES `cliente` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pago_ibfk_3` FOREIGN KEY (`ID_CIT`) REFERENCES `cita` (`ID`) ON DELETE CASCADE;
 
 
 COMMIT;

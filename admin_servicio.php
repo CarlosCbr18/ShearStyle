@@ -6,13 +6,14 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-if (isset($_SESSION["ID"])) {
+if (isset($_SESSION["ID"]) AND $_SESSION["Rol"] == "admin") {
     $id = $_SESSION["ID"]; // Recupera el ID de la sesión
 }else{
     echo"No se ha recuperado el id de la sesion";
     header("Location: login.php");
     exit; // Asegura que el script se detenga después de la redirección
 }
+
 ?>
 <?php
 $servername = "localhost";
@@ -61,20 +62,52 @@ if(!$bd) {
 
 <body class="main-layout">
 
+<div class="loader_bg">
+    <div class="loader"><img src="images/loading.gif" alt="" /></div>
+</div>
 
 <div class="wrapper">
-    <!-- end loader -->
+    
+<div class="sidebar">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+
+            <div id="dismiss">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <li class="active">
+                    <a href="index_admin.php">Home</a>
+                </li>
+                <li>
+                    <a href="admin_usuario.php">Usuarios</a>
+                </li>
+                <li>
+                    <a href="admin_servicio.php">Servicios</a>
+                </li>
+
+                <li>
+                    <a href="admin_cita.php">Citas</a>
+
+                </li>
+
+            </ul>
+
+        </nav>
+    </div>
+
 
 
     <div id="content">
-        <!-- header -->
         <!-- header -->
         <header>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="full">
-                            <a class="logo" href="index_peluquero.php"><img src="images/logo.png" alt="#" /></a>
+                            <a class="logo" href="index.php"><img src="images/logo.png" alt="#" /></a>
                         </div>
                     </div>
                     <div class="col-md-9">
@@ -87,8 +120,19 @@ if(!$bd) {
                                     if (isset($_SESSION["ID"])) {
                                         echo "<li class='button_user'><a class='button active' href='logout.php'>Cerrar Sesión</a></li>";
 
-                                    } 
+                                    } else{
+                                        
+                                    echo "<li class='button_user'><a class='button active' href='login.php'>Iniciar Sesión</a></li>";
+                                        echo "<li class='button_user'> <a class='button active' href='register.php'>Regístrate</a></li>";
+                                    }
                                     ?>
+
+
+                                    <li>
+                                        <button type="button" id="sidebarCollapse">
+                                            <a href="#">MENU</a>
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -97,37 +141,92 @@ if(!$bd) {
             </div>
         </header>
         <!-- end header -->
-        <!-- end header -->
+        <?php
+        $servicio = isset($_POST['servicio']) ? $_POST['servicio'] : '';
+
+
+        if($servicio) {
+            $servicios_query = mysqli_query($conn,"SELECT * FROM servicio WHERE ID = $servicio");
+        }
+        else{
+            $servicios_query = mysqli_query($conn,"SELECT * FROM servicio ORDER BY ID ASC");
+        }
+        ?>
+
+        <!--TABLA PELUQUEROS-->
+
+        <h2>Administración de Servicios</h2>
+
         <form method="post" action="">
-            <label for="fecha">Buscar por fecha:</label>
-            <input type="date" id="fecha" name="fecha">
+            <label for="servicio">Buscar por ID:</label>
+            <input type="int" id="servicio" name="servicio">
             <input type="submit" value="Buscar">
         </form>
 
         <?php
-        $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
-        if ($fecha) {
-         $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id AND Fecha = '$fecha' ORDER BY hora DESC");
-        } else {
-            $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id ORDER BY Fecha DESC, hora DESC");
-        }
 
-        if (mysqli_num_rows($citas) > 0) {
-            echo "<table style='margin: auto; width: 50%; border-collapse: collapse; text-align: center;'>";
-            echo "<tr style='background-color: #f2f2f2;'><th>Hora</th><th>Fecha</th><th>Cliente</th><th> </th></tr>";
-            while($row = mysqli_fetch_assoc($citas)) {
-                $cliente = mysqli_query($conn,"SELECT nombre FROM cliente WHERE ID = $row[ID_CLI]");
-                $fecha_formato = date('d-m-Y', strtotime($row["Fecha"]));  // Pone la fecha en formato dd-mm-aaaa
-                $nombre_cli = mysqli_fetch_assoc($cliente);
-                echo "<tr><td>". $row["hora"] . "</td><td>". $fecha_formato  . "</td><td>". $nombre_cli['nombre'] . "</td>";
-                echo "<td><a href='eliminar_cita.php?id_cita=".$row["ID"]."&id_cliente=".$row["ID_CLI"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
+        echo "<table style='margin: auto; width: 50%; border-collapse: collapse; text-align: center;'>";
+        echo "<tr style='background-color: #f2f2f2;'><th>ID</th><th>Nombre</th><th>Descripcion</th><th>Duracion</th><th>Precio</th><th> </th></tr>";
+        $n = isset($_POST['nPel']) ? $_POST['nPel'] : 8;
+        if (mysqli_num_rows($servicios_query) > 0) {
+            $i = 0;
+            while($row = mysqli_fetch_assoc($servicios_query) and $i < $n) {
+                if($i >= $n-8){
+                    echo "<tr><td>" . $row["ID"] . "</td><td>". $row["Nombre"] ."</td><td>". $row["Descripcion"]  . "</td><td>"
+                    . $row['Duracion'] . "</td><td>". $row['Precio'] . "</td><td></td><td> </td>";
+
+                    
+                    
+                    echo "<td>";
+                    echo "<form  method='post' action='administrar_servicio'>";
+                        echo "<input type='hidden' name='id' value='".$row['ID']."'>";
+                        echo "<button type='submit' name='accion' value='eliminar' class='btn btn-danger' 
+                        onclick=\"return confirm('¿Estás seguro de que quieres eliminar este servicio?');\">Eliminar</button>";
+                    echo "</form>";
+                    echo "</td>";
+                }
+                $i++;
             }
-            echo "</table>";
+
         } else {
-            echo "No hay citas para este peluquero en la fecha seleccionada.";
+            echo "<tr><td colspan='9'>No hay servicios para esta selección.</td></tr>";
         }
         ?>
 
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+
+        <tr>
+        <form method='post' action='administrar_servicio.php'>
+            <td><input type='number' name='id'></td>
+            <td><input type='text' name='nombre'></td>
+            <td><input type='text' name='descripcion'></td>
+            <td><input type='number' name='duracion'></td>
+            <td><input type='number' name='precio'></td>
+            <td><input type='submit' name = 'accion' value='modificar'></td>
+            <td><input type='submit' name = 'accion' value='crear'></td>
+        </form>
+        </tr>
+        
+        </table>
+        <!--Boton siguiente y anterior para mostrar las 5 siquientes-->
+        <?php if($n < mysqli_num_rows($servicios_query)): ?>
+            <form method='post' action='admin_servicio.php'>
+            <input type='hidden' name='nPel' value='.($n+8).'>
+            <input type='submit' value='Siguiente'>
+            </form>
+        <?php endif; ?>
+        <?php if($n > 8): ?>
+            <form method='post' action='admin_servicio.php'>
+            <input type='hidden' name='nPel' value='.($n-8).'>
+            <input type='submit' value='Anterior'>
+            </form>
+        <?php endif; ?>
+
+        <br>
+        <br>
+        
             <!-- footer -->
 
             <div class="footer">

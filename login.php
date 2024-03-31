@@ -339,6 +339,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(password_verify($contrasena, $id['Contraseña'])){
 
         $_SESSION["ID"] = $id['ID']; // Guarda el ID en la sesión
+        $_SESSION["Rol"] = "admin";
         header('Location: index_admin.php'); //lo redirige a index.php
         exit();
         }
