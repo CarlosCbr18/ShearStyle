@@ -167,7 +167,7 @@ if(!$bd) {
 
         echo "<table style='margin: auto; width: 50%; border-collapse: collapse; text-align: center;'>";
         echo "<tr style='background-color: #f2f2f2;'><th>ID</th><th>Nombre</th><th>Descripcion</th><th>Duracion</th><th>Precio</th><th> </th></tr>";
-        $n = isset($_POST['nPel']) ? $_POST['nPel'] : 8;
+        $n = isset($_POST['n']) ? $_POST['n'] : 8;
         if (mysqli_num_rows($servicios_query) > 0) {
             $i = 0;
             while($row = mysqli_fetch_assoc($servicios_query) and $i < $n) {
@@ -209,20 +209,36 @@ if(!$bd) {
         </form>
         </tr>
         
-        </table>
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+        
         <!--Boton siguiente y anterior para mostrar las 5 siquientes-->
-        <?php if($n < mysqli_num_rows($servicios_query)): ?>
-            <form method='post' action='admin_servicio.php'>
-            <input type='hidden' name='nPel' value='.($n+8).'>
-            <input type='submit' value='Siguiente'>
-            </form>
-        <?php endif; ?>
-        <?php if($n > 8): ?>
-            <form method='post' action='admin_servicio.php'>
-            <input type='hidden' name='nPel' value='.($n-8).'>
-            <input type='submit' value='Anterior'>
-            </form>
-        <?php endif; ?>
+        <tr>
+        
+        <?php if($n > 5){
+            echo "<form method='post' action='admin_servicio.php'>";
+            echo "<input type='hidden' name='n' value='".($n-5)."'>";
+            echo "<td> <input type='submit' value='Anterior'></td>";
+            echo "</form>";
+            echo "<td colspan='7'></td>";
+        }
+        else{
+            echo "<td colspan='8'></td>";
+        }?>
+    
+
+        <td>    
+        <?php if($n < mysqli_num_rows($servicios_query)){
+            echo "<form method='post' action='admin_servicio.php'>";
+            echo "<input type='hidden' name='n' value='".($n+5)."'>";
+            echo "<input type='submit' value='Siguiente'>";
+            echo "</form>";
+        }?>
+        </td>
+        </tr>
+
+        </table>
 
         <br>
         <br>

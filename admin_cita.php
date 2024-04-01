@@ -192,13 +192,14 @@ if(!$bd) {
                     $nombre_cli = mysqli_fetch_assoc($cliente);
         
                     $nombre_pel = mysqli_fetch_assoc($peluquero);
-                    echo "<tr><td>" . $row["ID"] . "</td><td>". $row["ID_SERV"] ."</td><td>". $row["hora"] . "</td><td>". $fecha_formato  . "</td><td>". $nombre_cli['nombre'] . "</td><td>" . $row["ID_CLI"] ."</td><td>" . $nombre_pel['nombre'] . "</td><td>". $row["ID_PELU"] ."</td>";
+                    echo "<tr><td>" . $row["ID"] . "</td><td>". $row["ID_SERV"] ."</td><td>". $row["hora"] . "</td><td>". $fecha_formato  . "</td><td>"
+                    . $nombre_cli['nombre'] . "</td><td>" . $row["ID_CLI"] ."</td><td>" . $nombre_pel['nombre'] . "</td><td>". $row["ID_PELU"] ."</td>";
                     
                     echo "<td>";
                     echo "<form  method='post' action='administrar_reserva.php'>";
-                    echo "<input type='hidden' name='id_cita' value='".$row['ID']."'>";
-                    echo "<input type='hidden' name='id_cliente' value='".$row['ID']."'>";
-                    echo "<input type='submit' class='btn btn-danger' onclick=\"return confirm('¿Estás seguro de que quieres eliminar esta cita?');\">Eliminar</button>";
+                        echo "<input type='hidden' name='id_cita' value='".$row['ID']."'>";
+                        echo "<button type='submit' name='accion' value='eliminar' class='btn btn-danger' 
+                        onclick=\"return confirm('¿Estás seguro de que quieres eliminar esta cita?');\">Eliminar</button>";
                     echo "</form>";
                     echo "</td>";
                 
@@ -229,23 +230,40 @@ if(!$bd) {
             <td><input type='submit' name = 'accion' value='crear'></td>
         </form>
         </tr>
+
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
         
-        </table>
         <!--Boton siguiente y anterior para mostrar las 5 siquientes-->
-        <?php if($n < mysqli_num_rows($citas)):?>
-            <form method='post' action='admin_cita.php'>
-            <input type='hidden' name='n' value='".($n+5)."'>
-            <input type='submit' value='Siguiente'>
-            </form>
-        <?php endif; ?>
+        <tr>
+        
+        <?php if($n > 5){
+            echo "<form method='post' action='admin_cita.php'>";
+            echo "<input type='hidden' name='n' value='".($n-5)."'>";
+            echo "<td> <input type='submit' value='Anterior'></td>";
+            echo "</form>";
+            echo "<td colspan='7'></td>";
+        }
+        else{
+            echo "<td colspan='8'></td>";
+        }?>
+    
 
+        <td>    
+        <?php if($n < mysqli_num_rows($citas)){
+            echo "<form method='post' action='admin_cita.php'>";
+            echo "<input type='hidden' name='n' value='".($n+5)."'>";
+            echo "<input type='submit' value='Siguiente'>";
+            echo "</form>";
+        }?>
+        </td>
+        </tr>
 
-        <?php if($n > 5):?>
-            <form method='post' action='admin_cita.php'>
-            <input type='hidden' name='n' value='".($n-5)."'>
-            <input type='submit' value='Anterior'>
-            </form>
-        <?php endif; ?>
+        </table>
+
+        <br>
+        <br>
 
             <!-- footer -->
 

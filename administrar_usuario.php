@@ -61,7 +61,6 @@ $id_usuario = $_POST['id_usuario'];
 $rol = $_POST['rol'];
 
 $sql="SELECT * FROM $rol WHERE ID = $id_usuario";
-var_dump($sql);
 $query_usuario = mysqli_query($conn,$sql);
 $usuario = mysqli_fetch_assoc($query_usuario);
 

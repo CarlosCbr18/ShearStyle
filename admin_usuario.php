@@ -224,20 +224,37 @@ if(!$bd) {
         </form>
         </tr>
         
-        </table>
+        
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+        
         <!--Boton siguiente y anterior para mostrar las 5 siquientes-->
-        <?php if($n < mysqli_num_rows($peluqueros_query)): ?>
-            <form method='post' action='admin_usuario.php'>
-            <input type='hidden' name='nPel' value='.($n+5).'>
-            <input type='submit' value='Siguiente'>
-            </form>
-        <?php endif; ?>
-        <?php if($n > 5): ?>
-            <form method='post' action='admin_usuario.php'>
-            <input type='hidden' name='nPel' value='.($n-5).'>
-            <input type='submit' value='Anterior'>
-            </form>
-        <?php endif; ?>
+        <tr>
+        
+        <?php if($n > 5){
+            echo "<form method='post' action='admin_usuario.php'>";
+            echo "<input type='hidden' name='nPel' value='".($n-5)."'>";
+            echo "<td> <input type='submit' value='Anterior'></td>";
+            echo "</form>";
+            echo "<td colspan='7'></td>";
+        }
+        else{
+            echo "<td colspan='8'></td>";
+        }?>
+    
+
+        <td>    
+        <?php if($n < mysqli_num_rows($peluqueros_query)){
+            echo "<form method='post' action='admin_usuario.php'>";
+            echo "<input type='hidden' name='nPel' value='".($n+5)."'>";
+            echo "<input type='submit' value='Siguiente'>";
+            echo "</form>";
+        }?>
+        </td>
+        </tr>
+
+        </table>
 
         <br>
         <br>
@@ -295,20 +312,37 @@ if(!$bd) {
         </form>
         </tr>
         
-        </table>
+
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+        
         <!--Boton siguiente y anterior para mostrar las 5 siquientes-->
-        <?php if($n < mysqli_num_rows($clientes_query)): ?>
-            <form method='post' action='admin_usuario.php'>
-            <input type='hidden' name='nCl' value='.($n+5).'>
-            <input type='submit' value='Siguiente'>
-            </form>
-        <?php endif; ?>
-        <?php if($n > 5): ?>
-            <form method='post' action='admin_usuario.php'>
-            <input type='hidden' name='nCl' value='.($n-5).'>
-            <input type='submit' value='Anterior'>
-            </form>
-        <?php endif; ?>
+        <tr>
+        
+        <?php if($n > 5){
+            echo "<form method='post' action='admin_usuario.php'>";
+            echo "<input type='hidden' name='nCl' value='".($n-5)."'>";
+            echo "<td> <input type='submit' value='Anterior'></td>";
+            echo "</form>";
+            echo "<td colspan='7'></td>";
+        }
+        else{
+            echo "<td colspan='8'></td>";
+        }?>
+    
+
+        <td>    
+        <?php if($n < mysqli_num_rows($clientes_query)){
+            echo "<form method='post' action='admin_usuario.php'>";
+            echo "<input type='hidden' name='nCl' value='".($n+5)."'>";
+            echo "<input type='submit' value='Siguiente'>";
+            echo "</form>";
+        }?>
+        </td>
+        </tr>
+
+        </table>
 
         <br>
         <br>
@@ -365,20 +399,37 @@ if(!$bd) {
         </form>
         </tr>
         
-        </table>
+
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+        <tr><td colspan='9'></td></tr>
+        
         <!--Boton siguiente y anterior para mostrar las 5 siquientes-->
-        <?php if($n < mysqli_num_rows($admins_query)): ?>
-            <form method='post' action='admin_usuario.php'>
-            <input type='hidden' name='nAd' value='.($n+5).'>
-            <input type='submit' value='Siguiente'>
-            </form>
-        <?php endif; ?>
-        <?php if($n > 5): ?>
-            <form method='post' action='admin_usuario.php'>
-            <input type='hidden' name='nAd' value='.($n-5).'>
-            <input type='submit' value='Anterior'>
-            </form>
-        <?php endif; ?>
+        <tr>
+        
+        <?php if($n > 5){
+            echo "<form method='post' action='admin_usuario.php'>";
+            echo "<input type='hidden' name='nAd' value='".($n-5)."'>";
+            echo "<td> <input type='submit' value='Anterior'></td>";
+            echo "</form>";
+            echo "<td colspan='7'></td>";
+        }
+        else{
+            echo "<td colspan='8'></td>";
+        }?>
+    
+
+        <td>    
+        <?php if($n < mysqli_num_rows($admins_query)){
+            echo "<form method='post' action='admin_usuario.php'>";
+            echo "<input type='hidden' name='nAd' value='".($n+5)."'>";
+            echo "<input type='submit' value='Siguiente'>";
+            echo "</form>";
+        }?>
+        </td>
+        </tr>
+
+        </table>
 
         <br>
         <br>

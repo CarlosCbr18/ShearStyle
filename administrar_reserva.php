@@ -60,9 +60,25 @@ $accion = $_POST['accion'];
 $id_cita = $_POST['id_cita'];
 
 if ($accion == 'eliminar') {
+    
+    $cita_antigua = mysqli_fetch_assoc(mysqli_query($conn,"SELECT * FROM cita WHERE ID = $id_cita"));
+
     $sql = "DELETE FROM cita WHERE ID = $id_cita";
     if ($conn->query($sql) === TRUE) {
         $_SESSION['alerta'] = 'La cita se ha cancelado.';
+
+        $cliente_ant = mysqli_fetch_assoc(mysqli_query($conn,
+                "SELECT ID,email,nombre FROM cliente WHERE ID = '".$cita_antigua["ID_CLI"]."'"));
+        $peluquero_ant = mysqli_fetch_assoc(mysqli_query($conn,
+                "SELECT ID,email,nombre FROM peluquero WHERE ID = '".$cita_antigua["ID_PELU"]."'"));
+        $fecha_antigua_formato = date('d-m-Y', strtotime($cita_antigua["fecha"])); // Formatear la fecha a un formato más legible
+
+        mandar_correo($peluquero_ant["email"],$peluquero_ant["nombre"],'Eliminacion de cita en ShearStyle Salon',
+            'Se ha cancelado una reserva con usted el '.$fecha_antigua_formato.' a las '.$cita_antigua["hora"].'.');
+                
+        mandar_correo($cliente_ant["email"],$cliente_ant["nombre"],'Eliminacion de cita en ShearStyle Salon',
+            'Se ha cancelado su reserva el '.$fecha_antigua_formato.' a las '.$cita_antigua["hora"].'.');
+            
         header('Location: admin_cita.php');
     } else {
         $_SESSION['alerta'] = 'Hubo un error inesperado intentelo de nuevo.';
@@ -124,8 +140,7 @@ elseif($accion == 'modificar'){
                         (hora >= '$hora' AND hora < '$hora_cita_fin')
                         OR (hora < '$hora' AND hora_fin > '$hora')
                     )
-                    AND id_pelu = '$id_peluquero'
-                )";
+                ) AND id = '$id_peluquero'";
 
             }else{
                 $sql = "SELECT ID,email,nombre
@@ -150,21 +165,20 @@ elseif($accion == 'modificar'){
                 $peluquero = mysqli_fetch_assoc($query_peluquero);
 
                 $peluquero_ant = mysqli_fetch_assoc(mysqli_query($conn,
-                "SELECT ID,email,nombre FROM peluquero WHERE ID = '".$cita_antigua["id_pelu"]."'"));
+                "SELECT ID,email,nombre FROM peluquero WHERE ID = '".$cita_antigua["ID_PELU"]."'"));
 
 
                 $cliente = mysqli_fetch_assoc(mysqli_query($conn,
                 "SELECT ID,email,nombre FROM cliente WHERE ID = '$id_cliente'"));
 
                 $cliente_ant = mysqli_fetch_assoc(mysqli_query($conn,
-                "SELECT ID,email,nombre FROM cliente WHERE ID = '".$cita_antigua["id_cli"]."'"));
-                
+                "SELECT ID,email,nombre FROM cliente WHERE ID = '".$cita_antigua["ID_CLI"]."'"));
                 $insertar = "INSERT INTO cita (id, id_pelu, id_serv, id_cli, Fecha, hora, hora_fin) 
                 VALUES ('$id_cita', '".$peluquero["ID"]."' , '$id_servicio', '$id_cliente', '$fecha', '$hora', '$hora_cita_fin')";
 
                 // Ejecutar la sentencia SQL
                 if ($conn->query($insertar) === TRUE) {
-                    $fecha_antigua_formato = date('d-m-Y', strtotime($cita_antigua["fecha"])); // Formatear la fecha a un formato más legible
+                    $fecha_antigua_formato = date('d-m-Y', strtotime($cita_antigua["Fecha"])); // Formatear la fecha a un formato más legible
                     $fecha_formato = date('d-m-Y', strtotime($fecha)); // Formatear la fecha a un formato más legible
                     
 
@@ -183,6 +197,11 @@ elseif($accion == 'modificar'){
                     mandar_correo($cliente['email'],$cliente['nombre'],'Modificación de cita en ShearStyle Salon',
                     'Se le ha reservado una cita el '.$fecha_formato.' a las '.$hora.'.<br> Muchas gracias por su reserva.');
                     header('Location: admin_cita.php');
+                }
+                else{
+                    $_SESSION['alerta'] = 'No se ha podido modificar la cita, intentelo de nuevo.';
+                    header('Location: admin_cita.php');
+                
                 }
             }
             else{
@@ -300,6 +319,10 @@ elseif($accion == 'crear'){
                 $_SESSION['alerta'] = 'No se ha podido crear la cita, intentelo de nuevo.';
                 header('Location: admin_cita.php');
             }
+        }
+        else{
+            $_SESSION['alerta'] = 'No se ha podido crear la cita debido a la disponiblidad de los peluqueros.';
+            header('Location: admin_cita.php');
         }
 
         
