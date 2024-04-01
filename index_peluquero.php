@@ -107,9 +107,9 @@ if(!$bd) {
         <?php
         $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
         if ($fecha) {
-         $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id AND Fecha = '$fecha' ORDER BY hora DESC");
+         $citas = mysqli_query($conn,"SELECT ID, ID_CLI, hora, Fecha FROM cita WHERE ID_PELU = $id AND Fecha = '$fecha' ORDER BY hora DESC");
         } else {
-            $citas = mysqli_query($conn,"SELECT * FROM cita WHERE ID_PELU = $id ORDER BY Fecha DESC, hora DESC");
+            $citas = mysqli_query($conn,"SELECT ID, ID_CLI, hora, Fecha FROM cita WHERE ID_PELU = $id ORDER BY Fecha DESC, hora DESC");
         }
 
         if (mysqli_num_rows($citas) > 0) {
@@ -117,10 +117,16 @@ if(!$bd) {
             echo "<tr style='background-color: #f2f2f2;'><th>Hora</th><th>Fecha</th><th>Cliente</th><th> </th></tr>";
             while($row = mysqli_fetch_assoc($citas)) {
                 $cliente = mysqli_query($conn,"SELECT nombre FROM cliente WHERE ID = $row[ID_CLI]");
-                $fecha_formato = date('d-m-Y', strtotime($row["Fecha"]));  // Pone la fecha en formato dd-mm-aaaa
+                $fecha_cita = strtotime($row["Fecha"]);  // Convierte la fecha de la cita a timestamp
+                $fecha_actual = strtotime(date('Y-m-d'));
+                $fecha_formato = date('d-m-Y', $fecha_cita);  // Pone la fecha en formato dd-mm-aaaa
                 $nombre_cli = mysqli_fetch_assoc($cliente);
                 echo "<tr><td>". $row["hora"] . "</td><td>". $fecha_formato  . "</td><td>". $nombre_cli['nombre'] . "</td>";
-                echo "<td><a href='eliminar_cita.php?id_cita=".$row["ID"]."&id_cliente=".$row["ID_CLI"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
+                if ($fecha_cita > $fecha_actual) {
+                    echo "<td><a href='eliminar_cita.php?id_cita=".$row["ID"]."&id_cliente=".$row["ID_CLI"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
+                } else {
+                    echo "<td>REALIZADA</td></tr>";
+                }
             }
             echo "</table>";
         } else {

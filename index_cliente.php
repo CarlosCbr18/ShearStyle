@@ -111,13 +111,18 @@ if(!$bd) {
 
         if (mysqli_num_rows($citas) > 0) {      //Si hay citas se mostrarán 
             echo "<table style='margin: auto; width: 50%; border-collapse: collapse; text-align: center;'>";
-            echo "<tr style='background-color: #f2f2f2;'><th>Hora</th><th>Fecha</th><th>Cliente</th><th> </th></tr>";
+            echo "<tr style='background-color: #f2f2f2;'><th>Hora</th><th>Fecha</th><th>Accion</th><th> </th></tr>";
             while($row = mysqli_fetch_assoc($citas)) {
-             
-                $fecha_formato = date('d-m-Y', strtotime($row["Fecha"]));  // Pone la fecha en formato dd-mm-aaaa
+                $fecha_cita = strtotime($row["Fecha"]);  // Convierte la fecha de la cita a timestamp
+                $fecha_actual = strtotime(date('Y-m-d'));
+                $fecha_formato = date('d-m-Y', $fecha_cita);  // Pone la fecha en formato dd-mm-aaaa
  
                 echo "<tr><td>". $row["hora"] . "</td><td>". $fecha_formato  . "</td>";
-                echo "<td><a href='eliminar_cita_cliente.php?id_cita=".$row["id"]."&id_pelu=".$row["ID_PELU"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
+                if ($fecha_cita > $fecha_actual) {
+                    echo "<td><a href='eliminar_cita_cliente.php?id_cita=".$row["id"]."&id_pelu=".$row["ID_PELU"]."' class='btn btn-danger'>Eliminar</a></td></tr>";
+                } else {
+                    echo "<td>REALIZADA</td></tr>";
+                }
             }
             echo "</table>";
         } else {
